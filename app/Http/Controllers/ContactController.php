@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-    //
     public function show()
     {
         return view('contact');
@@ -30,8 +29,24 @@ class ContactController extends Controller
             'message' => $request->message,
         ]);
 
-        
+
 
         return back()->with('success', 'Thank you for contacting us!');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $contact = Contact::findOrFail($id);
+
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'message' => 'required|string',
+        ]);
+
+        $contact->update($request->all());
+
+        return redirect()->route('dashboard')->with('success', 'Contact updated successfully.');
     }
 }
