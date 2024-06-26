@@ -14,30 +14,31 @@
             </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-6">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h3 class="text-lg font-medium text-gray-800 dark:text-gray-200">Contact Messages</h3>
-                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4">
+                    <h3 class="font-semibold text-lg">{{ __('Contact Messages') }}</h3>
+                    <table class="min-w-full bg-white dark:bg-gray-800 mt-4">
                         <thead>
                             <tr>
-                                <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">ID</th>
-                                <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">First Name</th>
-                                <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Last Name</th>
-                                <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Email</th>
-                                <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Message</th>
-                                <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Created At</th>
-                                <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+                                <th class="py-2">Voornaam</th>
+                                <th class="py-2">Achternaam</th>
+                                <th class="py-2">E-mail</th>
+                                <th class="py-2">Bericht</th>
+                                <th class="py-2">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                            @foreach($contacts as $contact)
+                        <tbody>
+                            @foreach ($contacts as $contact)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ $contact->id }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ $contact->first_name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ $contact->last_name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ $contact->email }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ $contact->message }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ $contact->created_at }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                        <a href="{{ route('contact.edit', $contact->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <td class="border px-4 py-2">{{ $contact->first_name }}</td>
+                                    <td class="border px-4 py-2">{{ $contact->last_name }}</td>
+                                    <td class="border px-4 py-2">{{ $contact->email }}</td>
+                                    <td class="border px-4 py-2">{{ $contact->message }}</td>
+                                    <td class="border px-4 py-2">
+                                        <a href="{{ route('contact.edit', $contact->id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                        <form action="{{ route('contact.delete', $contact->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-900 ml-4">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

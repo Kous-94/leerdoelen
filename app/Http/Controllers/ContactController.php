@@ -49,4 +49,13 @@ class ContactController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Contact updated successfully.');
     }
+
+
+    public function delete($id) {
+        $contact = Contact::findOrFail($id);
+        $contact->delete();
+    
+        return redirect()->route('dashboard')->with('success', 'Contact deleted successfully.');
+        
+    }
 }

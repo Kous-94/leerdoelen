@@ -26,7 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('contact.edit');
 
     Route::put('/contact/{id}', [ContactController::class, 'update'])->name('contact.update');
-
+    Route::delete('/contact/{id}', [ContactController::class, 'delete'])->name('contact.delete');
 });
 
 
